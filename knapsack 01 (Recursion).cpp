@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <bits/stdc++.h> // O(2^n) Recursive way
 using namespace std;
 #define ll long long
 ll weight[10000], price[10000];
