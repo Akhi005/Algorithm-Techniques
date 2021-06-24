@@ -57,6 +57,14 @@ inline bool cmp(pll a,pll b)
         return a.ss < b.ss;
     return a.ff > b.ff;
 }
+/** Binary_string to decimal_number**/
+ll binary_string_to_decimal(string &s)
+{
+    ll rem=0,i,l=s.size();
+    for(i=0; i<l; i++)
+        rem=rem*2+(s[i]-'0');
+    return rem;
+}
 
 /*** BitWise Operations ***/
 bool getBit (ll num, ll pos)
