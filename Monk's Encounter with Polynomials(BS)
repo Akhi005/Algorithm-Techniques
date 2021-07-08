@@ -1,0 +1,28 @@
+#include<bits/stdc++.h> // Binary Search Implementation
+using namespace std;
+#define ll long long
+ll t,a,b,i,j,c,k,l,r,mid,ans,p,p1;
+int main()
+{
+    cin>>t;
+    while(t--)
+    {
+        cin>>a>>b>>c>>k;
+        ans=0;
+       l=0,r=ceil(sqrt(k));
+       while(l<=r)
+       {
+           mid=(l+r)/2;
+           p=a*mid*mid+b*mid+c;
+           p1=a*(mid-1)*(mid-1)+ b*(mid-1)+ c;
+           if(p>=k && p1<k) { ans=mid ; break;}
+           else if(p>k)
+           {
+               r=mid-1;
+           }
+           else  l=mid+1;
+       }
+       cout<<ans<<endl;
+    }
+    return 0;
+}
