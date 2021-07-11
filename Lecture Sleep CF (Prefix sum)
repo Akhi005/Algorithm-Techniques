@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+int main()
+{
+    ll q,t,i,j,n,m,r=0,ax,ay,bx,by,x,k,mx,y;
+    cin>>n>>k;
+    ll p[n+2],arr[n+2],pnt[n+5];
+    memset(pnt,0,sizeof(pnt));
+    for(i=1; i<=n; i++){
+        cin>>arr[i];
+    }
+    memset(p,0,sizeof p);
+    mx=-1;ll sum;
+    for(i=1; i<=n; i++)  /// two prefix sum in one loop
+    {
+        cin>>ax;
+        if(ax)
+        {
+            p[i]=p[i-1]+arr[i];
+            pnt[i]=pnt[i-1];
+        }
+        else
+        {
+            pnt[i]=pnt[i-1]+arr[i];
+            p[i]=p[i-1];
+        }
+    }
+    for(i=k;i<=n;i++)
+    {
+        ax=pnt[i]-pnt[i-k]; /// sliding window technique
+        mx=max(ax,mx);
+    }
+    cout<<p[n]+mx<<endl;
+
+    return 0;
+}
