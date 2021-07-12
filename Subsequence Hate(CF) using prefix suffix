@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main()
+{
+    ll t,i,j,k,n,m,b,sum=0,f;
+    cin>>t;
+    while(t--)
+    {
+        string s;
+        cin>>s;
+        ll suffix1=0,suffix0=0,prefix1=0,prefix0=0,ans=0;
+        for(i=0; i<s.size(); i++)
+        {
+            if(s[i]=='0')
+                suffix0++;
+            else
+                suffix1++;
+        }
+        ans=min(suffix0,suffix1);
+        for(i=0; i<s.size(); i++)
+        {
+            if(s[i]=='0')
+                prefix0++,suffix0--;
+            else
+                prefix1++,suffix1--;
+
+            ans=min(ans,prefix1+suffix0);// 1111000
+            ans=min(ans,prefix0+suffix1); // 0001111
+        }
+        cout<<ans<<endl;
+    }
+
+}
