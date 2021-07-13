@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll unsigned long long
+ll v[100005],pre[100005],d[100005],l[100002],r[100005],add[100005];
+int main()
+{
+    ll t,i,j,k=0,n,c,m,ans=INT_MAX,type,mn,x,y;
+    cin>>n>>m>>k;
+
+    for(i=1; i<=n; i++)
+        cin>>v[i];
+    for(i=1;i<=m;i++)
+        cin>>l[i]>>r[i]>>d[i];
+    while(k--)
+    {
+        cin>>x>>y;
+        pre[x]++, pre[y+1]--;  
+    }
+    for(i=1; i<=m; i++)
+        pre[i]+=pre[i-1];
+
+    for(i=1; i<=m; i++){
+        add[l[i]]+=pre[i]*d[i];
+        add[r[i]+1]-=pre[i]*d[i];
+    }
+    for(i=1;i<=n;i++)
+        add[i]+=add[i-1];
+     for(i=1;i<=n;i++)
+        cout<<v[i]+add[i]<<' ';
+        cout<<endl;
+}
