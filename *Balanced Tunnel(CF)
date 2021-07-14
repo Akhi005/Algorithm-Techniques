@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll unsigned long long
+ll in[100005],out[100002];
+int main()
+{
+    ll i,j,k=0,n,a,c=0,m,ans=0,type,prev,x,y,f=0;
+    cin>>n;
+    m=n;
+   for(i=1;i<=n;i++)
+   {
+       cin>>a;
+       in[a]=i;
+   }
+   for(i=1;i<=n;i++) cin>>out[i];
+   for(i=n;i>=1;i--)
+   {
+       prev=in[out[i]];
+       if(prev>m) c++;
+       else m = prev;
+   }
+   cout<<c<<endl;
+}
