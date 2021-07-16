@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+int p[1000000];
+char ch(char c)
+{
+    if(islower(c))
+        return toupper(c);
+    else
+        return tolower(c);
+}
+int main()
+{
+    string s,t;
+    ll j,k,n,m,i,l,y=0,w=0;
+    cin>>s>>t;
+    map<char,int>m1,m2;
+    for(i=0; i<t.size(); i++)
+        m1[t[i]]++;
+    for(i=0; i<s.size(); i++)
+    {
+        if(m1[s[i]])
+        {
+            m1[s[i]]--;
+            p[i]=1;
+            y++;
+        }
+    }
+    for(i=0; i<s.size(); i++)
+    {
+        if(p[i]==0)
+        {
+            if(m1[ch(s[i])])
+            {
+                --m1[ch(s[i])];
+                w++;
+            }
+        }
+    }
+    cout<<y<<' '<<w<<endl;
+}
