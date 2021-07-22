@@ -1,0 +1,80 @@
+/// double hashing 
+#include<bits/stdc++.h>
+
+
+using namespace std;
+#define ll  long long
+void init()
+{
+    #ifndef ONLINE_JUDGE
+    freopen("E:/codes/in.txt", "r", stdin);
+    freopen("E:/codes/out.txt", "w", stdout);
+    #endif // ONLINE_JUDGE
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);cout.tie(NULL);
+}
+ll hs[100005],ht[100005],pw[100005],prm=131,md=1e9+9,prm2=137,md2=1e9+7;
+ll hs2[100005],ht2[100005],pw2[100005]
+ll bigmod(ll val,ll p)
+{
+    if(p==0)return 1;
+    if(p%2==0)
+    {
+        ll res=bigmod(val,p/2);
+        return (res*res)%md;
+    }
+    else return (val*bigmod(val,p-1))%md;
+}
+ll bigmod2(ll val,ll p)
+{
+    if(p==0)return 1;
+    if(p%2==0)
+    {
+        ll res=bigmod2(val,p/2);
+        return (res*res)%md2;
+    }
+    else return (val*bigmod2(val,p-1))%md2;
+}
+int main()
+{
+    //init();
+    ll ts,cs=1;
+    pw[0]=1;
+    for(ll i=1;i<100005;i++)pw[i]=(prm*pw[i-1])%md;
+    for(ll i=1;i<100005;i++)pw2[i]=(prm2*pw2[i-1])%md2;
+    cin>>ts;
+    while(ts--)
+    {
+        ///cout<<"Case "<<cs++<<": ";
+        string s,t;
+        cin>>s>>t;
+        ll tz=t.size(),ans=0;
+        hs[0]=s[0];ht[0]=t[0];
+        hs2[0]=s[0];ht2[0]=t[0];
+        for(ll i=1;i<s.size();i++)hs[i]=(hs[i-1]+(s[i]*pw[i])%md)%md;
+        for(ll i=1;i<t.size();i++)ht[i]=(ht[i-1]+(t[i]*pw[i])%md)%md;
+        for(ll i=1;i<s.size();i++)hs2[i]=(hs2[i-1]+(s[i]*pw2[i])%md2)%md2;
+        for(ll i=1;i<t.size();i++)ht2[i]=(ht2[i-1]+(t[i]*pw2[i])%md2)%md2;
+        ll ths=ht[tz-1];
+        ll ths2=ht2[tz-1];
+        for(ll i=t.size()-1;i<s.size();i++)
+        {
+            ll shs=hs[i];
+            ll shs2=hs2[i];
+            if(i-tz>=0)
+            {
+                shs=(shs-hs[i-tz])%md;
+                shs=(shs+md)%md;
+                shs=(shs*bigmod(pw[i-tz+1],md-2))%md;
+                shs2=(shs2-hs2[i-tz])%md2;
+                shs2=(shs2+md2)%md2;
+                shs2=(shs2*bigmod2(pw2[i-tz+1],md2-2))%md2;
+            }
+            if(ths==shs && ths2==shs2)ans++;
+        }
+        cout<<ans<<endl;
+    }
+
+
+    return 0;
+}
