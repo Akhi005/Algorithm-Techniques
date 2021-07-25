@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll  long long
+
+int main()
+{
+    ll i,j,t;
+    cin>>t;
+    while(t--)
+    {
+        string s;
+        cin>>s;
+        ll l=s.size(),c=0;
+        bool found=true;
+        for(i=1;i<=l;i++)
+        {
+            if(l%i!=0) continue;
+            for(j=i;j<=l;j++)
+            {
+                if(s[j]!=s[j%i])
+                {
+                    found=false;
+                    break;
+                }
+            }
+            if(found || j==l){ cout<<i<<endl; break;}
+        }
+        if(t)
+        cout<<endl;
+    }
+    return 0;
+
+}
