@@ -1,0 +1,53 @@
+#include<bits/stdc++.h> // We traverse a string in forward way and check either it turns into backward or not
+using namespace std;
+#define ll long long
+int main()
+{
+    ll t1,i,j,k,m,n,x,y;
+    cin>>t1;
+    while(t1--)
+    {
+        string s,t,s1;
+        cin>>s>>t;
+        ll sl=s.size(),f=0;
+        ll tl=t.size();
+        for(i=0; i<sl; i++)
+        {
+            for(j=i; j<sl; j++)
+            {
+                if(s[j]!=t[j-i]){   //s er position k bar bar check korbe t er 0 position teke (j-i)
+                    f=1;break;}
+                ll len=j-i+1;
+                if(len==tl)
+                {
+                    cout<<"YES\n";
+                    f=0;
+                    break;
+                }
+                ll current=j ;
+                f=0;
+                for(k=len; k<tl; k++)  // check the backward turn 
+                {
+                    current--;
+                    if(current<0 || s[current]!=t[k])
+                    {
+                        f=1;
+                        break;
+                    }
+                }
+                if(f==0)
+                {
+                    cout<<"YES\n";
+                    break;
+                }
+            }
+            if(f==0)
+            {
+                break;
+            }
+        }
+        if(f==1)
+            cout<<"NO\n";
+    }
+    return 0;
+}
