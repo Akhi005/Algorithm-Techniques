@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+ll u,v,i,j,k,source[100000];
+vector<ll>graph[100000];
+
+ll dist[100000];
+bool visited[1000000];
+void addedge(ll u,ll v)
+{
+    graph[u].push_back(v);
+    graph[v].push_back(u);
+}
+void multisource(vector<ll>graph[], queue<ll>q )
+{
+    while(!q.empty())
+    {
+        ll first=q.front();
+        q.pop();
+
+        for(i=0;i<graph[first].size();i++)
+        {
+            if(!visited[graph[first][i]])
+            {
+                q.push(graph[first][i]);
+                dist[i]=dist[first]+1;
+                visited[graph[first][i]]=true;
+            }
+        }
+    }
+}
+void nearestown(vector<ll>graph[],ll n, ll source[], ll src)
+{
+    queue<ll>q;
+    for(i=0; i<src; i++)
+    {
+        q.push(source[i]);
+        visited[source[i]]=true;
+    }
+    multisource(graph,q);
+    for(i=1; i<=n; i++)
+        cout<<i<<' '<<dist[i]<<endl;
+}
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+
+    int n,u,v,src,e;
+    cin>>n>>e;
+    for(i=1; i<=e; i++)
+    {
+        cin>>u>>v;
+        addedge(u,v);
+    }
+    cin>>src;
+    for(i=0; i<src; i++)
+    {
+        cin>>k;
+        source[i]=k;
+    }
+    nearestown(graph,n,source,src);
+
+    return 0;
+}
