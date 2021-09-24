@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+int n,m,i;
+bool vis[100][100];
+int dx[]={-1,0,1,0};//up , right , down , left ( clockwise)
+int dy[]={0,1,0,-1};
+bool isvalid(int x , int y)
+{
+    if(x<1 || x>n || y<1 || y>m) return false;
+    if(vis[x][y]==true)  return false;
+    return true;
+}
+void dfs(int x, int y)
+{
+    vis[x][y]=1;
+    cout<<"( "<<x<<' '<<y<<" )"<<endl;
+    for(i=0; i<4; i++)
+    {
+        if(isvalid(x+dx[i],y+dy[i]))
+            dfs(x+dx[i],y+dy[i]);
+    }
+}
+int main()
+{
+    cin>>n>>m;
+    dfs(1,1);
+    return 0;
+}
