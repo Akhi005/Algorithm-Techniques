@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+vector<int>create_temp_array(string p)
+{
+    vector<int>lps(p.size());
+    int index=0;
+    for(int i=1;i<p.size();)
+    {
+        if(p[index]==p[i])
+        {
+            lps[i]=index+1;
+            ++index,++i;
+        }
+        else{
+            if(index!=0) index=lps[index-1];
+            else lps[i]=index , ++i;
+        }
+    }
+    return lps;
+}
+void kmp(string s, string p)
+{
+    int f=0;
+    vector<int>lps=create_temp_array(p);
+    int i=0,j=0;
+    while(i<s.size())
+    {
+        if(s[i]==p[j])
+        {
+            i++,j++;
+        }
+        else
+        {
+            if(j!=0)
+                j=lps[j-1];
+            else
+                i++;
+        }
+        if(j==p.size())
+        {
+            f++;
+            cout<<"index "<<i-p.size()<<endl;
+            j=lps[j-1];
+        }
+    }
+    cout<<f<<endl;
+}
+int main()
+{
+    ll t,n,i,x,k;
+    cin>>t;
+    while(t--)
+    {
+        string s,p,ss;
+        cin>>s>>p;
+        kmp(s,p);
+    }
+    return 0;
+}
