@@ -1,58 +1,48 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-bool prime[1000000000];
-void seive(int n) // using bool
+bool vis[1000000000];
+vector<ll>prm;
+ll i,j;
+bitset<1000000007>mark;
+void seive() // using bool
 {
-    int i,j;
-    for(i=0; i<n; i++)
-        prime[i]=true;
-    prime[0]=false, prime[1]=false;
-    for(i=2; i<n; i++)
-    {
-        if(prime[i])
-        {
-            for(j=i*i; j<n; j+=i)
-                prime[j]=false;
-        }
-    }
-    for(i=0; i<=n; i++)
-    {
-        if(prime[i]==true)
-            cout<<i<<' ';
-    }
-}
-void seive_of(int n) // using bitset
-{
-    vector<int>prm;
-    bitset<100007>bt;
-    bt.set();  // 1
-    bt[0]=bt[1]=0;
-    int i,j;
+    memset(vis,false,sizeof(vis));
     prm.push_back(2);
-    for(i=3; i<n; i+=2)
+    for(i=3; i<=10000000; i+=2)
     {
-        if(bt[i])
+        if(vis[i]==false)
         {
-            for(j=i*i; j<n; j+=i)
-            {
-                bt[j]=0;
-            }
+            for(j=i*i; j<=1000000; j+=2*i)
+                vis[j]=true;
             prm.push_back(i);
         }
     }
-    for(i=0; i<n; i++)
-        cout<<prm[i]<<' ';
+}
+void seive_of() // using bitset
+{
+    int i,j;
+    prm.push_back(2);
+    for(i=3; i<100000000; i+=2)
+    {
+        if(mark[i]==0)
+        {
+            if(i*1LL*i>=100000000) continue;
+            for(j=i*i; j<100000000; j+=2*i)
+                mark[j]=1;
+
+            prm.push_back(i);
+        }
+    }
 }
 int main()
 {
     int n,i;
     cin>>n;
-    seive(n);
+    seive_of();
     for(i=0; i<=n; i++)
     {
-        if(prime[i]==true)
-            cout<<i<<' ';
+            cout<<prm[i]<<' ';
     }
     return 0;
 }
