@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define MAXN   10000001
+ll spf[MAXN],i,k,j;
+void sieve()
+{
+    for(i=2;i<=MAXN;i++)
+        spf[i]=i;
+    for(i=4;i<=MAXN;i+=2)
+        spf[i]=2;
+    for(i=3;i*i<=MAXN;i++)
+    {
+        if(spf[i]==i)
+        {
+            for(j=i*i;j<=MAXN;j+=i)
+            {
+                if(spf[j]==j) spf[j]=i;
+            }
+        }
+    }
+}
+vector<ll>factor(ll x)
+{
+    vector<ll>res;
+    while(x!=1)
+    {
+        res.push_back(spf[x]);
+        x=x/spf[x];
+    }
+    return res;
+}
+int main()
+{
+    ll t,n,m,i;
+    cin>>t;
+    sieve();
+   while(t--)
+   {
+       cin>>n;
+       vector<ll>p = factor(n);
+       for(i=0;i<p.size();i++) cout<<p[i]<<' ';
+       cout<<endl;
+   }
+    return 0;
+}
