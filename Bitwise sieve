@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+//vector<int>prm;
+vector<ll>prm;
+//int arr[100000000];
+ll arr[100000000];
+ll i,j;
+void bitwise_seieve()
+{
+    memset(arr,0,sizeof arr);
+    for(i=2;i<=100000000;i++)
+    {
+       // int index=i/32, bit=i%32 ;  for int divide by 32
+        ll index=i/64, bit=i%64 ;// for long long divide by 64
+        if(arr[index]  & (1<<bit) != 0 ) continue;
+        prm.push_back(i);
+        for(j=i*i;j<=100000000;j+=i)
+        {
+          // int index=j/32 , bit=j%32;
+           ll index=j/64 , bit=j%64;
+            arr[index]=arr[index] | (1<<bit);
+        }
+    }
+}
+int main()
+{
+     bitwise_seieve();
+    ll n,i;
+    cin>>n;
+    i=(arr[n/64] & (1<<(n%64)));
+    if(i==0) cout<<n<<" is prime \n";
+    else cout<<n<<" is not prime\n";
+    return 0;
+}
