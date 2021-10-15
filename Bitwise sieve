@@ -28,8 +28,11 @@ int main()
      bitwise_seieve();
     ll n,i;
     cin>>n;
+    if(n==1) cout<<"0\n";
+    else{
     i=(arr[n/64] & (1<<(n%64)));
     if(i==0) cout<<n<<" is prime \n";
     else cout<<n<<" is not prime\n";
+    }
     return 0;
 }
