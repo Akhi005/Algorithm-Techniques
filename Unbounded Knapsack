@@ -1,0 +1,29 @@
+#include <bits/stdc++.h> /// O(W+1)*n  allow repeated items
+using namespace std;
+#define ll long long
+int weight[1000],price[10000],cnt;
+
+int knap(int n,int W)
+{
+    int dp[W+2],i,j;
+    memset(dp,0, sizeof dp);
+    for(i=1;i<=W;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            if(weight[j]<i)
+                 dp[i]=max(dp[i],(dp[i-weight[j]]+price[j]));
+        }
+    }
+    return dp[W];
+}
+int main()
+{
+   int n,i,j,k,W;
+   cin>>n>>W;
+   for(i=1;i<=n;i++)
+    cin>>weight[i]>>price[i];
+   k=knap(n,W);
+   cout<<k<<endl;
+    return 0;
+}
