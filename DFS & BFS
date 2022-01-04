@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool vis[100000];
+int i,k,src,node;
+vector<int>grap[10000];
+int level[100000];
+
+void dfs(int n){
+  vis[n]=1;
+  //cout<<n<<' ';
+  for(i=0;i<grap[n].size();i++)
+  {
+      if(vis[grap[n][i]]==0)
+         dfs(grap[n][i]);
+  }
+}
+void bfs(int src)
+{
+   queue<int>q;
+    q.push(src);
+    while(!q.empty())
+    {
+        k=q.front();
+       // cout<<k<<' '; //node sequence
+        q.pop();
+        vis[k]=1;
+        for(i=0;i<grap[k].size();i++)
+        {
+            if(vis[grap[k][i]]==0)
+            {
+                vis[grap[k][i]]=1;
+                level[grap[k][i]]=level[k]+1;
+                q.push(grap[k][i]);
+            }
+        }
+    }
+
+}
+int main()
+{
+    int i,j,k,m,x,y,node,edge,src;
+    cin>>node>>edge;
+
+    for(i=0;i<edge;i++)
+    {
+        cin>>x>>y;
+        grap[x].push_back(y);
+        grap[y].push_back(x);
+    }
+    for(i=0;i<=node;i++) level[i]=0,vis[i]=0;
+    cin>>src;
+   dfs(src);
+   bfs(src);
+   for(i=src;i<src+node;i++) cout<<i<<' '<<level[i]<<'\n';//for bfs
+}
+/*
+6 5
+1 4
+2 4
+3 4
+4 5
+5 6
+1
+*/
