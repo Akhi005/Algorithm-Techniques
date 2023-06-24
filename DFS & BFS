@@ -4,6 +4,21 @@ bool vis[100000];
 int i,k,src,node;
 vector<int>grap[10000];
 int level[100000];
+// To find leaf node'''''''
+vector<ll>graph[2000005];
+ll cnt[2000005];
+void dfs(ll node , ll parent)
+{
+    if(graph[node].size()==1 && node!=1) cnt[node]=1;
+    for(int i: graph[node])
+    {
+        if(i!=parent)
+        {
+            dfs(i,node); cnt[node]+=cnt[i];
+        }
+    }
+}
+''''''
 
 void dfs(int n){
   vis[n]=1;
